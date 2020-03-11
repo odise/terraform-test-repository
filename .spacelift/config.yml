@@ -1,0 +1,12 @@
+version: "1"
+
+stacks:
+  terraform-test-repository: &shared
+    # before_init:
+    #   - ln -s sandbox modules
+    #   - terraform fmt -check
+    #   - tflint
+    project_root: stacks/prod
+    # runner_image: your/first:runner
+    skip_refresh_on_prs: true
+    terraform_version: 0.12.21
