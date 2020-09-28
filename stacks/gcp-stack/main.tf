@@ -3,19 +3,23 @@ data google_compute_network vpc {
   name    = "default-${var.gcp_region}"
 }
 
-resource google_compute_firewall default {
-  name    = "example-firewall"
-  project = var.gcp_project_name
-  network = data.google_compute_network.vpc.self_link
+# resource google_compute_firewall default {
+#   name    = "example-firewall"
+#   project = var.gcp_project_name
+#   network = data.google_compute_network.vpc.self_link
 
-  allow {
-    protocol = "icmp"
-  }
+#   allow {
+#     protocol = "icmp"
+#   }
 
-  allow {
-    protocol = "tcp"
-    ports    = ["10180", "18080"]
-  }
+#   allow {
+#     protocol = "tcp"
+#     ports    = ["10180", "18080"]
+#   }
 
-  source_tags = ["qwerty"]
+#   source_tags = ["qwerty"]
+# }
+
+output vpc_name {
+    value = data.google_compute_network.vpc.self_link
 }
