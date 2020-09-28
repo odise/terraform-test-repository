@@ -1,5 +1,6 @@
 data google_compute_network vpc {
-  name = "default-${var.gcp_region}"
+  project = var.gcp_project_name
+  name    = "default-${var.gcp_region}"
 }
 
 resource google_compute_firewall default {
