@@ -1,25 +1,23 @@
-data google_compute_network vpc {
-  project = var.gcp_project_name
-  name    = "default-${var.gcp_region}"
+resource random_id suffix {
+  byte_length = 5
 }
 
-# resource google_compute_firewall default {
-#   name    = "example-firewall"
-#   project = var.gcp_project_name
-#   network = data.google_compute_network.vpc.self_link
+resource google_storage_bucket auto_expire {
+  name          = "auto-expiring-bucket-${random_id.suffix.hex}"
+  project       = var.gcp_project_name
+  location      = "EU"
+  force_destroy = true
 
-#   allow {
-#     protocol = "icmp"
-#   }
+  lifecycle_rule {
+    condition {
+      age = "3"
+    }
+    action {
+      type = "Delete"
+    }
+  }
+}
 
-#   allow {
-#     protocol = "tcp"
-#     ports    = ["10180", "18080"]
-#   }
-
-#   source_tags = ["qwerty"]
-# }
-
-output vpc_name {
-    value = data.google_compute_network.vpc.self_link
+output bucket_name {
+  value = google_storage_bucket.auto_expire.self_link
 }
