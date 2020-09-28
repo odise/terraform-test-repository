@@ -6,7 +6,7 @@ data google_compute_network vpc {
 resource google_compute_firewall default {
   name    = "example-firewall"
   project = var.gcp_project_name
-  network = data.google_compute_network.vpc.name
+  network = data.google_compute_network.vpc.self_link
 
   allow {
     protocol = "icmp"
